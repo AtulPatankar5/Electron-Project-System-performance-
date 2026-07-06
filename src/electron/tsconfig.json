@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        //requires strict type (null-save)
+        "strict": true,
+        //tell ts to generate ESM Syntax. Use Import instead of require
+        "target": "ESNext",
+        //Create Node project using ESNext
+        "module": "NodeNext",
+        //define where to put generated JS
+        "outDir": "../../dist-electron",
+        //ignore error from dependencies
+        "skipLibCheck": true,
+    }
+}
