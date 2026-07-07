@@ -4,6 +4,9 @@
         "dist-electron",
         "dist-react"
     ],
+    "extraResources": [
+        "dist-electron/preload.cjs"
+    ],
     "icon": "desktop-icon.png",
     "mac": {
         "target": "dmg"

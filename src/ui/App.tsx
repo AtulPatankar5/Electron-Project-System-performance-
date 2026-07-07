@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
@@ -6,6 +6,14 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+
+
+  useEffect(() => {
+    const unsub = window.electron.subscribeStatistics((stats) => {
+      console.log('stats-->', stats);
+    })
+    return unsub;
+  }, [])
 
   return (
     <>
@@ -17,6 +25,7 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
+          <h2>here is changed lines code</h2>
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
