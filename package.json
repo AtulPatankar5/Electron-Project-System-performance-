@@ -21,7 +21,8 @@
   "dependencies": {
     "os-utils": "^0.0.14",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "recharts": "^3.9.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
