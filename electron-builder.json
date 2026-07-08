@@ -5,7 +5,8 @@
         "dist-react"
     ],
     "extraResources": [
-        "dist-electron/preload.cjs"
+        "dist-electron/preload.cjs",
+        "src/assets/**"
     ],
     "icon": "desktop-icon.png",
     "mac": {

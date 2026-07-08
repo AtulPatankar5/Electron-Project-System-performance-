@@ -18,6 +18,21 @@ export function ipcMainHandle<Key extends keyof EventPayloadMapping>(key: Key, h
     });
 }
 
+
+export function ipcMainOn<Key extends keyof EventPayloadMapping>(
+    key: Key,
+    handler: (payload: EventPayloadMapping[Key]) => void
+) {
+    ipcMain.on(key, (event, payload) => {
+        if (!event.senderFrame) {
+            throw new Error("Sender frame is no longer available.");
+        }
+
+        validateEventFrame(event.senderFrame);
+        handler(payload);
+    });
+}
+
 export function ipcWebContentsSend<Key extends keyof EventPayloadMapping>(
     key: Key,
     webContents: WebContents,
