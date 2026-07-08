@@ -9,6 +9,8 @@ import {
 
 type BaseChartProps = {
     data: { value: number | undefined }[];
+    fill: string;
+    stroke: string;
 
 };
 
@@ -19,8 +21,8 @@ export function BaseChart(props: BaseChartProps) {
                 <CartesianGrid stroke="#333" strokeDasharray="5 5" fill="#1C1C1C" />
                 <Area
                     fillOpacity={0.3}
-                    fill={'#0A4d5c'}
-                    stroke={'#5DD4EE'}
+                    fill={props.fill}
+                    stroke={props.stroke}
                     strokeWidth={3}
                     type="monotone"
                     dataKey="value"

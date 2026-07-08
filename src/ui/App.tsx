@@ -4,7 +4,7 @@ import { useStatistics } from './useStatistics'
 import { Chart } from './Chart'
 
 function App() {
-
+  const staticData = useStaticData();
   const statistics = useStatistics(10);
   const [activeView, setActiveView] = useState<View>("CPU");
   const [label, setLabel] = useState("CPU Usage");
@@ -45,20 +45,19 @@ function App() {
   useEffect(() => {
     switch (activeView) {
       case "CPU":
-        setLabel("CPU Usage");
+        setLabel("CPU Usage" + (staticData?.cpuModel ? " " + staticData.cpuModel : ""));
         break;
       case "RAM":
-        setLabel("RAM Usage");
+        setLabel("RAM Usage" + (staticData?.totalMemoryGB ? " " + staticData.totalMemoryGB + " GB" : ""));
         break;
       case "STORAGE":
-        setLabel("Storage Usage");
+        setLabel("Storage Usage" + (staticData?.totalStorage ? " " + staticData.totalStorage + " GB" : ""));
         break;
     }
-  }, [activeView]);
+  }, [activeView, staticData]);
 
-
-  return (
-    <>
+  function Header() {
+    return <>
 
       <header>
         <div className="menu-container">
@@ -67,16 +66,54 @@ function App() {
         </div>
         <div className="window-controls">
           <button title="minimize" id="minimize" onClick={() => window.electron.sendFrameAction('MINIMIZE')}></button>
-          <button  title="maximize"id="maximize" onClick={() => window.electron.sendFrameAction('MAXIMIZE')}></button>
+          <button title="maximize" id="maximize" onClick={() => window.electron.sendFrameAction('MAXIMIZE')}></button>
           <button title="close" id="close" onClick={() => window.electron.sendFrameAction('CLOSE')}></button>
         </div>
       </header>
-      <div className="chart-container">
-        <div className="chart-title">
-          {label}
+    </>
+  }
+
+  function useStaticData() {
+    const [staticData, setStaticData] = useState<StaticData>();
+
+    useEffect(() => {
+      (async () => {
+        const data = await window.electron.getStaticData();
+        setStaticData(data);
+      })();
+    }, []);
+
+    return staticData;
+  }
+
+  function SelectOption({ title, subtitle, data, onclick }: SelectOptionProps) {
+    return <button className='selectOption' onClick={onclick}>
+      <div className='selectOptionTitle'>
+        <div>{title}</div>
+        <div>{subtitle}</div>
+      </div>
+      <div className='selectOptionChart'>
+        <Chart selectedView={title} data={data} maxDataPoints={10} />
+      </div>
+    </button>
+  }
+  return (
+    <>
+      <Header />
+
+      <div className="main">
+        <div>
+          <SelectOption onclick={() => setActiveView('CPU')} title="CPU" subtitle={staticData?.cpuModel ?? ""} data={cpuUsage} />
+          <SelectOption onclick={() => setActiveView('RAM')} title="RAM" subtitle={(staticData?.totalMemoryGB.toString() ?? "") + " GB"} data={ramUsage} />
+          <SelectOption onclick={() => setActiveView('STORAGE')} title="STORAGE" subtitle={(staticData?.totalStorage ?? "") + " GB"} data={storageUsage} />
         </div>
-        <div className="chart-wrapper">
-          <Chart data={activeUsages} maxDataPoints={10} />
+        <div className="chart-container">
+          <div className="chart-title">
+            {label}
+          </div>
+          <div className="chart-wrapper">
+            <Chart  selectedView={activeView} data={activeUsages} maxDataPoints={10} />
+          </div>
         </div>
       </div>
 

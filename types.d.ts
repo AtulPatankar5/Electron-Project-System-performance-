@@ -3,6 +3,12 @@ type Statistics = {
     ramUsage: number,
     storageUsage: number
 }
+type SelectOptionProps = {
+    title: View;
+    subtitle: string | number;
+    data: number[];
+    onclick: () => void;
+};
 
 type StaticData = {
     totalStorage: number,
