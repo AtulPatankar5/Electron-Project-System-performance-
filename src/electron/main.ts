@@ -1,10 +1,10 @@
-import { app, BrowserWindow, Menu, Tray } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
 import { ipcMainHandle, ipcMainOn, isDev } from "./util.js";
 import { getStaticData, pollResources } from "./resourceManager.js";
-import { getAssetsPath, getPreloadPath, getUIPath } from "./pathResolver.js";
-import path from "path";
+import { getPreloadPath, getUIPath } from "./pathResolver.js";
+
 import { createTray } from "./tray.js";
-import { createMenu } from "./menu.js";
+import { createMenu, getAppMenu, getViewMenu } from "./menu.js";
 
 // Menu.setApplicationMenu(null);
 
@@ -38,6 +38,14 @@ app.on("ready", () => {
             case 'MINIMIZE':
                 mainWindow.minimize();
                 break;
+            case 'SHOW_APP_MENU': {
+                getAppMenu(mainWindow).popup({ window: mainWindow });
+                break;
+            }
+            case 'SHOW_VIEW_MENU': {
+                getViewMenu(mainWindow).popup({ window: mainWindow });
+                break;
+            }
         }
     })
 

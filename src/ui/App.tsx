@@ -53,8 +53,6 @@ function App() {
       case "STORAGE":
         setLabel("Storage Usage");
         break;
-      default:
-        setLabel("Usage");
     }
   }, [activeView]);
 
@@ -63,9 +61,15 @@ function App() {
     <>
 
       <header>
-        <button id="close" onClick={() => window.electron.sendFrameAction('CLOSE')}></button>
-        <button id="minimize" onClick={() => window.electron.sendFrameAction('MINIMIZE')}></button>
-        <button id="maximize" onClick={() => window.electron.sendFrameAction('MAXIMIZE')}></button>
+        <div className="menu-container">
+          <button id="menu-app" className="menu-btn" onClick={() => window.electron.sendFrameAction('SHOW_APP_MENU')}>App</button>
+          <button id="menu-view" className="menu-btn" onClick={() => window.electron.sendFrameAction('SHOW_VIEW_MENU')}>View</button>
+        </div>
+        <div className="window-controls">
+          <button title="minimize" id="minimize" onClick={() => window.electron.sendFrameAction('MINIMIZE')}></button>
+          <button  title="maximize"id="maximize" onClick={() => window.electron.sendFrameAction('MAXIMIZE')}></button>
+          <button title="close" id="close" onClick={() => window.electron.sendFrameAction('CLOSE')}></button>
+        </div>
       </header>
       <div className="chart-container">
         <div className="chart-title">

@@ -214,21 +214,37 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  text-align: left;
-  padding: 0.5rem;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
   box-sizing: border-box;
   background-color: #181818;
   -webkit-app-region: drag;
+  height: 38px;
 }
 
-header button {
+.menu-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+header .window-controls button {
   all: unset;
   border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
+  width: 0.85rem;
+  height: 0.85rem;
   margin: 0.25rem;
   -webkit-app-region: no-drag;
+  cursor: pointer;
 }
 
 #close {
@@ -241,4 +257,22 @@ header button {
 
 #maximize {
   background-color: lime;
+}
+
+.menu-btn {
+  all: unset;
+  -webkit-app-region: no-drag;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #d1d1d1;
+  background-color: transparent;
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.menu-btn:hover {
+  background-color: #2b2b2b;
+  color: #ffffff;
 }

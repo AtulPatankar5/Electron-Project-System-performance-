@@ -13,7 +13,7 @@ type StaticData = {
 
 type View = "CPU" | "STORAGE" | "RAM";
 
-type FrameWindowAction = 'CLOSE' | 'MAXIMIZE' | 'MINIMIZE'
+type FrameWindowAction = 'CLOSE' | 'MAXIMIZE' | 'MINIMIZE' | 'SHOW_APP_MENU' | 'SHOW_VIEW_MENU'
 
 type EventPayloadMapping = {
     statistics: Statistics,
