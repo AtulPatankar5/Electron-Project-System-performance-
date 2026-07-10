@@ -3,6 +3,7 @@ import fs from "fs";
 import os from "os";
 import { BrowserWindow } from "electron";
 import { ipcWebContentsSend } from "./util.js";
+import { getMachineGuid, getSystemUuid, getDiskSerialNumber, getCpuDetails, getNetworkInterfaces } from "./systemInfo.js";
 
 const POLLING_INTERVAL = 500;
 
@@ -19,11 +20,27 @@ export function pollResources(mainWindow: BrowserWindow) {
     }, POLLING_INTERVAL);
 }
 
-export function getStaticData(): StaticData {
+export async function getStaticData(): Promise<StaticData> {
     const totalStorage = getstorageUsage().total;
     const cpuModel = os.cpus()[0].model;
     const totalMemoryGB = Math.floor(osUtils.totalmem() / 1024);
-    return { totalStorage, cpuModel, totalMemoryGB };
+    
+    const machineGuid = await getMachineGuid();
+    const systemUuid = await getSystemUuid();
+    const diskSerialNumber = await getDiskSerialNumber();
+    const cpuDetails = getCpuDetails();
+    const networkInterfaces = getNetworkInterfaces();
+
+    return { 
+        totalStorage, 
+        cpuModel, 
+        totalMemoryGB,
+        machineGuid,
+        systemUuid,
+        diskSerialNumber,
+        cpuDetails,
+        networkInterfaces
+    };
 }
 
 

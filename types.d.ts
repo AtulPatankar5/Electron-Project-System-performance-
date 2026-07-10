@@ -10,10 +10,29 @@ type SelectOptionProps = {
     onclick: () => void;
 };
 
+type CpuDetails = {
+    model: string;
+    speed: number;
+    cores: number;
+    arch: string;
+}
+
+type NetworkInterfaceInfo = {
+    interfaceName: string;
+    v4: string;
+    v6: string;
+    mac: string;
+}
+
 type StaticData = {
     totalStorage: number,
     cpuModel: string,
-    totalMemoryGB: number
+    totalMemoryGB: number,
+    machineGuid: string,
+    systemUuid: string,
+    diskSerialNumber: string,
+    cpuDetails: CpuDetails,
+    networkInterfaces: NetworkInterfaceInfo[]
 }
 
 
