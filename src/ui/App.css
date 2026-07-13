@@ -90,8 +90,8 @@ header .window-controls button {
 }
 
 .main {
-  display: grid;
-  grid-template-columns: 16rem auto;
+  /* display: grid; */
+  /* grid-template-columns: 16rem auto; */
   margin-top: 50px;
   gap: 2rem;
   align-items: start;

@@ -32,7 +32,9 @@ type StaticData = {
     systemUuid: string,
     diskSerialNumber: string,
     cpuDetails: CpuDetails,
-    networkInterfaces: NetworkInterfaceInfo[]
+    networkInterfaces: NetworkInterfaceInfo[],
+    osVersion: string,
+    osPatch: string
 }
 
 
